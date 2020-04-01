@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 # Text/Dat files
-.txt
-.dat
-.fits
+*.txt
+*.dat
+*.fits
+.DS_Store
