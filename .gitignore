@@ -133,3 +133,17 @@ dmypy.json
 *.dat
 *.fits
 .DS_Store
+
+*.reg
+*.pdf
+*.png
+*.jpg
+*.zip
+
+Linear_transform_code 2/
+HST_Kit/
+
+*.docx
+
+eteqCode/
+piscdwarfs_hst-master/
