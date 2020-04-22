@@ -38,4 +38,4 @@ for rr in range(len(frames)):
 
         concat = np.vstack((up_arr,low_arr))
 
-        np.savetxt(dir_flc+'all_'+frames[rr]+'_'+filters[ff]+'_matched.dat',concat,header=header)
+        np.savetxt(dir_flc+'all_'+frames[rr]+'_'+filters[ff]+'_matched_tol1.dat',concat,header=header)

@@ -139,6 +139,7 @@ dmypy.json
 *.png
 *.jpg
 *.zip
+*.cat
 
 Linear_transform_code 2/
 HST_Kit/

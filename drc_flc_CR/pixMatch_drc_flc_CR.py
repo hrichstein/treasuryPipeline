@@ -24,97 +24,107 @@ drc_low = np.genfromtxt(infileDRC_low, names=True)
 
 flc_all = np.genfromtxt(infileFLC, names=True)
 
-matchtol = 5
+matchtol = 1
 def distArr(x0,y0,x_arr,y_arr):
     dist_arr = np.sqrt( (x0-x_arr)**2 + (y0-y_arr)**2 )
 
     return dist_arr
 
-filter = 'f606w'
+filters = ['f606w','f814w']
+low_x = [drc_low['x_v'],drc_low['x_i']]
+low_y = [drc_low['y_v'],drc_low['y_i']]
+
+up_x = [drc_up['x_v'],drc_up['x_i']]
+up_y = [drc_up['y_v'],drc_up['y_i']]
+
 ########################################################################
-x_drc_low = drc_low['x_i']
-y_drc_low = drc_low['y_i']
-xm_flc_low = flc_all['xdrc_low_'+filter]
-ym_flc_low = flc_all['ydrc_low_'+filter]
+for ff in range(len(filters)):
+    filter = filters[ff]
+    x_drc_low = low_x[ff]
+    y_drc_low = low_y[ff]
+    xm_flc_low = flc_all['xdrc_low_'+filter]
+    ym_flc_low = flc_all['ydrc_low_'+filter]
 
-coords1low = np.empty((xm_flc_low.size,2))
-coords2low = np.empty((x_drc_low.size,2))
+    coords1low = np.empty((xm_flc_low.size,2))
+    coords2low = np.empty((x_drc_low.size,2))
 
-coords1low[:,0] = xm_flc_low
-coords1low[:,1] = ym_flc_low
+    coords1low[:,0] = xm_flc_low
+    coords1low[:,1] = ym_flc_low
 
-coords2low[:,0] = x_drc_low
-coords2low[:,1] = y_drc_low
+    coords2low[:,0] = x_drc_low
+    coords2low[:,1] = y_drc_low
 
-kdt = KDT(coords2low)
-idxs2 = kdt.query(coords1low)[1]
+    kdt = KDT(coords2low)
+    idxs2 = kdt.query(coords1low)[1]
 
-ds = distArr(xm_flc_low,ym_flc_low,x_drc_low[idxs2],y_drc_low[idxs2])
+    ds = distArr(xm_flc_low,ym_flc_low,x_drc_low[idxs2],y_drc_low[idxs2])
 
-idxs1 = np.arange(xm_flc_low.size)
+    idxs1 = np.arange(xm_flc_low.size)
 
-msk = ds < matchtol
-idxs1 = idxs1[msk]
-idxs2 = idxs2[msk]
-ds = ds[msk]
+    msk = ds < matchtol
+    idxs1 = idxs1[msk]
+    idxs2 = idxs2[msk]
+    ds = ds[msk]
 
-outfile = outDir+'hor-I-cut_drc_low_'+filter+'_tol5.txt'
-np.savetxt(outfile, idxs2, fmt='%4i')
+    outfile = outDir+'hor-I-cut_drc_low_'+filter+'_tol1.txt'
+    np.savetxt(outfile, idxs2, fmt='%4i')
 
-outfile = outDir+'hor-I-cut_flc_low_'+filter+'_tol5.txt'
-np.savetxt(outfile, idxs1, fmt='%4i')
+    outfile = outDir+'hor-I-cut_flc_low_'+filter+'_tol1.txt'
+    np.savetxt(outfile, idxs1, fmt='%4i')
 
-outfile = outDir+'hor-I-cut_ds_low_'+filter+'_tol5.txt'
-np.savetxt(outfile, ds, fmt='%1.4f')
+    outfile = outDir+'hor-I-cut_ds_low_'+filter+'_tol1.txt'
+    np.savetxt(outfile, ds, fmt='%1.4f')
 
-print('It took {0:0.1f} seconds'.format(time.time() - start))
+    print('It took {0:0.1f} seconds'.format(time.time() - start))
 
 
 ##############################################
-# x_drc_up = drc_up['x_i']
-# y_drc_up = drc_up['y_i']
-# xm_flc_up = flc_all['xdrc_up_'+filter]
-# ym_flc_up = flc_all['ydrc_up_'+filter]
-#
-# # Need to split these so that the DRC sections are being compared
-# # the correct transformed columns
-# # 1 will be for the flc
-# # first going to do the upper half
-# coords1up = np.empty((xm_flc_up.size,2))
-# coords2up = np.empty((x_drc_up.size,2))
-#
-# ################################################
-# coords1up[:,0] = xm_flc_up
-# coords1up[:,1] = ym_flc_up
-#
-# coords2up[:,0] = x_drc_up
-# coords2up[:,1] = y_drc_up
-# ###################################################
-#
-# kdt = KDT(coords2up)
-# idxs2 = kdt.query(coords1up)[1]
-#
-# ds = distArr(xm_flc_up,ym_flc_up,x_drc_up[idxs2],y_drc_up[idxs2])
-#
-# idxs1 = np.arange(xm_flc_up.size)
-#
-# msk = ds < matchtol
-# idxs1 = idxs1[msk]
-# idxs2 = idxs2[msk]
-# ds = ds[msk]
-#
-# outfile = outDir+'hor-I-cut_drc_up_'+filter+'_tol5.txt'
-# np.savetxt(outfile, idxs2, fmt='%4i')
-#
-# outfile = outDir+'hor-I-cut_flc_up_'+filter+'_tol5.txt'
-# np.savetxt(outfile, idxs1, fmt='%4i')
-# # # switched naming convention for the 814 filter.
-# # # now, name matches with file it should be fed to
-# #
-# outfile = outDir+'hor-I-cut_ds_up_'+filter+'_tol5.txt'
-# np.savetxt(outfile, ds, fmt='%1.4f')
-#
-# print('It took {0:0.1f} seconds'.format(time.time() - start))
+for ff in range(len(filters)):
+    filter = filters[ff]
+    x_drc_up = up_x[ff]
+    y_drc_up = up_y[ff]
+    xm_flc_up = flc_all['xdrc_up_'+filter]
+    ym_flc_up = flc_all['ydrc_up_'+filter]
+
+    # Need to split these so that the DRC sections are being compared
+    # the correct transformed columns
+    # 1 will be for the flc
+    # first going to do the upper half
+    coords1up = np.empty((xm_flc_up.size,2))
+    coords2up = np.empty((x_drc_up.size,2))
+
+    ################################################
+    coords1up[:,0] = xm_flc_up
+    coords1up[:,1] = ym_flc_up
+
+    coords2up[:,0] = x_drc_up
+    coords2up[:,1] = y_drc_up
+    ###################################################
+
+    kdt = KDT(coords2up)
+    idxs2 = kdt.query(coords1up)[1]
+
+    ds = distArr(xm_flc_up,ym_flc_up,x_drc_up[idxs2],y_drc_up[idxs2])
+
+    idxs1 = np.arange(xm_flc_up.size)
+
+    msk = ds < matchtol
+    idxs1 = idxs1[msk]
+    idxs2 = idxs2[msk]
+    ds = ds[msk]
+
+    outfile = outDir+'hor-I-cut_drc_up_'+filter+'_tol1.txt'
+    np.savetxt(outfile, idxs2, fmt='%4i')
+
+    outfile = outDir+'hor-I-cut_flc_up_'+filter+'_tol1.txt'
+    np.savetxt(outfile, idxs1, fmt='%4i')
+    # # switched naming convention for the 814 filter.
+    # # now, name matches with file it should be fed to
+    #
+    outfile = outDir+'hor-I-cut_ds_up_'+filter+'_tol1.txt'
+    np.savetxt(outfile, ds, fmt='%1.4f')
+
+    print('It took {0:0.1f} seconds'.format(time.time() - start))
 
 
 

@@ -55,7 +55,7 @@ for rr in range(len(frames)):
 
             header='RA_v DEC_v x_v y_v fAper_v fErr_v magAper_v magErr_v magRaw_v magRed_v magAbs_v elong_v ellip_v class_Star_v RA_i DEC_i x_i y_i fAper_i fErr_i magAper_i magErr_i magRaw_i magRed_i magAbs_i elong_i ellip_i class_Star_i corrF_errV corrF_errI corrM_errV corrM_errI'
         for ff in range(len(filters)):
-            idxFile = np.genfromtxt(idxDir+'hor-I-cut_'+frames[rr]+'_'+positions[pp]+'_'+filters[ff]+'_tol5.txt',dtype=int)
+            idxFile = np.genfromtxt(idxDir+'hor-I-cut_'+frames[rr]+'_'+positions[pp]+'_'+filters[ff]+'_tol1.txt',dtype=int)
 
             outname = positions[pp]+'_'+frames[rr]+'_'+filters[ff]+'_matched.dat'
 
