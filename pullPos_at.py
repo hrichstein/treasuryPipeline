@@ -21,7 +21,7 @@ workdir = "/Volumes/Spare Data/Hannah_Data/"
 
 # coordDir = '/Volumes/Spare Data/Hannah_Data/hor1dir1803/dir2403/'
 
-coordDir = '/Volumes/Spare Data/Hannah_Data/hor1dir3103/'
+coordDir = '/Volumes/Spare Data/Hannah_Data/hor1dir2804/'
 out_dir = coordDir
 
 xr, yr, flux, c_star, magr = 0, 1, 2, 3, 4
@@ -35,7 +35,7 @@ def pullRawPos(targname,filter):
 
     # master = np.loadtxt(coordDir+targname+"_"+filter+"_coords.txt")
 
-    master = np.loadtxt(coordDir+targname+"_"+filter+"_coords_nC.txt")
+    master = np.loadtxt(coordDir+targname+"_"+filter+"_coords.txt")
 
     # coordRows = master[:,[ra_ind,dec_ind,flux,c_star]] #working line
 
@@ -51,7 +51,7 @@ def pullRawPos(targname,filter):
         # transformed points
         # cat = np.loadtxt(coordDir+ jdanUse[jj] +"_"+targname+'_'+ filter +"_at.dat",comments='#')
 
-        cat = np.loadtxt(coordDir+ jdanUse[jj] +"_"+targname+'_'+ filter +"_atnC.dat",comments='#')
+        cat = np.loadtxt(coordDir+ jdanUse[jj] +"_"+targname+'_'+ filter +"_at.dat",comments='#')
 
         if jj==0:
             idcol = id
@@ -86,6 +86,6 @@ def pullRawPos(targname,filter):
 
     # np.savetxt(out_dir+targname+"_"+filter+"_xy.dat", magList, fmt="%1.5f",header=header)
 
-    np.savetxt(out_dir+targname+"_"+filter+"_xynC.dat", magList, fmt="%1.5f",header=header)
+    np.savetxt(out_dir+targname+"_"+filter+"_xy.dat", magList, fmt="%1.5f",header=header)
 
     return None

@@ -48,8 +48,8 @@ dir = "/Volumes/Spare Data/Hannah_Data/Linear_transform_code/"
 # match_files_dir = '/Volumes/Spare Data/Hannah_Data/drc_flc_match/'
 # flc_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir6pix/'
 
-match_files_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir1803/'
-flc_dir = '/Volumes/Spare Data/Hannah_Data/hor1flcs/catRawMags1703/catDir/'
+match_files_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir2804/'
+flc_dir = '/Volumes/Spare Data/Hannah_Data/catRawMags2804/catDir/'
 
 # assign column numbers to the columns for the file with sources to be transformed
 xr, yr, flux, c_star, magr, id, xc, yc = 0, 1, 2, 3, 4, 5, 6, 7

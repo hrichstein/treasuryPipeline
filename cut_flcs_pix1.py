@@ -6,9 +6,9 @@ import time
 # in_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir3/'
 # out_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir6pix/'
 
-main_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir1803/'
-in_dir = main_dir+'/dir2403/'
-out_dir = main_dir+'/dir2503/'
+main_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir2804/'
+in_dir = main_dir #+'/dir2403/'
+out_dir = main_dir #+'/dir2503/'
 # out_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir0501/' # four pixel
 
 RA, DEC, flux, c_star, xr_1, yr_1, xc_1, yc_1, xt_1, yt_1, mag1, xr_2, yr_2, xc_2, yc_2, xt_2, yt_2, mag2, xr_3, yr_3, xc_3, yc_3, xt_3, yt_3, mag3, xr_4, yr_4, xc_4, yc_4, xt_4, yt_4, mag4, mean, stdev, pos_std, cut_flag, cut_idx, num_abv_std = 0, 1, 2, 3, 4, 5, 6, 7, 8, \
