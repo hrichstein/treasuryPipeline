@@ -14,12 +14,12 @@ workdir = "/Volumes/Spare Data/Hannah_Data/"
 # out_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir0501/'
 
 # CR hor1 stuff
-inner_work = 'hor1flcs/'
-catDir = "catRawMags1703/catDir/"
-posDir = workdir+inner_work+catDir # first iteration
+# inner_work = 'hor1flcs/'
+catDir = "catRawMags2804/catDir/"
+posDir = workdir+catDir # first iteration
 # out_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir1803/'
 
-coordDir = '/Volumes/Spare Data/Hannah_Data/hor1dir1803/'
+coordDir = '/Volumes/Spare Data/Hannah_Data/hor1dir2804/'
 out_dir = coordDir
 
 xr, yr, flux, c_star, magr = 0, 1, 2, 3, 4

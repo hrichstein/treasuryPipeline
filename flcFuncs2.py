@@ -6,18 +6,18 @@ import time
 
 workdir = "/Volumes/Spare Data/Hannah_Data/"
 # cupDir = "catRawMags0501/"
-inner_work = 'hor1flcs/'
-cupDir = "catRawMags1703/"
-catDir = "catRawMags1703/catDir/"
+# inner_work = 'hor1flcs/'
+cupDir = "catRawMags2804/"
+catDir = "catRawMags2804/catDir/"
 # catDir = "catRawMags0501/catDir/"
 # coordDir = 'mags0501/coordDir/'
 # posDir = '/Volumes/Spare Data/Hannah_Data/positions_d4/'
 # magDir = 'mags0501/magDir/'
-# posDir = workdir+inner_work+catDir # zeroth iteration
+posDir = workdir+catDir # zeroth iteration
 
 # out_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir1803/'
-out_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir3103/'
-posDir = out_dir # first iteration after 6D transform
+out_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir2804/'
+# posDir = out_dir # first iteration after 6D transform
 
 xr, yr, flux, c_star, magr = 0, 1, 2, 3, 4
 
@@ -57,7 +57,7 @@ def distCor(targname,filter):
 
     for ff in range(len(jdanUse)):
         #Load catalog
-        cat = np.loadtxt(workdir+inner_work+cupDir + jdanUse[ff]+'_'+targname+'_'+filter+'_wMag.dat')
+        cat = np.loadtxt(workdir+cupDir + jdanUse[ff]+'_'+targname+'_'+filter+'_wMag.dat')
 
         #Do correction
         cor = acsDistortion(workdir+'wfc_'+filter,cat[:,xr],cat[:,yr])
@@ -67,7 +67,7 @@ def distCor(targname,filter):
 
         header = 'xr yr flux c_star magr id xc yc'
 
-        np.savetxt(workdir+inner_work+catDir+jdanUse[ff]+'_'+targname+'_'+filter+'_dc.dat',cat,fmt="%1.5f %1.5f %1.5f %1.4f %1.5f %d %1.5f %1.5f",header=header)
+        np.savetxt(workdir+catDir+jdanUse[ff]+'_'+targname+'_'+filter+'_dc.dat',cat,fmt="%1.5f %1.5f %1.5f %1.4f %1.5f %d %1.5f %1.5f",header=header)
 
     return None
 
@@ -89,7 +89,7 @@ def offCor(targname,filter):
         yoff = float(tempim[0].header["POSTARG2"])
 
     # Load the respective catalog
-        cat = np.loadtxt(workdir+inner_work+catDir+jdanUse[ff]+"_"+targname+"_"+filter+"_dc.dat")
+        cat = np.loadtxt(workdir+catDir+jdanUse[ff]+"_"+targname+"_"+filter+"_dc.dat")
 
         # Create an array for the new values
         newCol = np.zeros((len(cat),2))
@@ -104,7 +104,7 @@ def offCor(targname,filter):
         header =  "xr yr flux c_star magr id xc yc xo yo"
 
         # Save each WJC with new columns of offsets
-        np.savetxt(workdir+inner_work+catDir+ jdanUse[ff] + "_"+targname+"_"+filter+"_oc.dat", cat, fmt="%1.5f %1.5f %1.5f %1.4f %1.5f %d %1.5f %1.5f %1.5f %1.5f", header=header)
+        np.savetxt(workdir+catDir+ jdanUse[ff] + "_"+targname+"_"+filter+"_oc.dat", cat, fmt="%1.5f %1.5f %1.5f %1.4f %1.5f %d %1.5f %1.5f %1.5f %1.5f", header=header)
 
     return None
 # Matching time
@@ -143,11 +143,11 @@ def matchWJCs(targname,filter,matchtol=matchtol):
     # master = np.loadtxt(posDir+ jdanUse[0] +"_"+targname+'_'+ filter +"_dc_t.dat")
 
     # For zeroeth iteration
-    # master = np.loadtxt(posDir+ jdanUse[0] +"_"+targname+'_'+ filter +"_oc.dat")
+    master = np.loadtxt(posDir+ jdanUse[0] +"_"+targname+'_'+ filter +"_oc.dat")
 
     # master = np.loadtxt(posDir+"dir2403/"+jdanUse[0] +"_"+targname+'_'+ filter +"_at.dat")
 
-    master = np.loadtxt(posDir+jdanUse[0] +"_"+targname+'_'+ filter +"_atnC.dat")
+    # master = np.loadtxt(posDir+jdanUse[0] +"_"+targname+'_'+ filter +"_atnC.dat")
 
     # Create an array of zeros with columns equal to the number of non-master dithers to store the matching id for each source
 
@@ -164,12 +164,12 @@ def matchWJCs(targname,filter,matchtol=matchtol):
         # cat = np.loadtxt(posDir+ jdanUse[dd+1] +"_"+targname+'_'+ filter +"_dc_t.dat")
 
         # For zeroth iteration
-        # cat = np.loadtxt(posDir+ jdanUse[dd+1] +"_"+targname+'_'+ filter +"_oc.dat")
+        cat = np.loadtxt(posDir + jdanUse[dd+1] +"_"+targname+'_'+ filter +"_oc.dat")
 
         # For first iteration
         # cat = np.loadtxt(posDir+"dir2403/"+jdanUse[dd+1] +"_"+targname+'_'+ filter +"_at.dat")
 
-        cat = np.loadtxt(posDir+jdanUse[dd+1] +"_"+targname+'_'+ filter +"_atnC.dat")
+        # cat = np.loadtxt(posDir+jdanUse[dd+1] +"_"+targname+'_'+ filter +"_atnC.dat")
 
         nF = True
         row = 0
@@ -207,7 +207,7 @@ def matchWJCs(targname,filter,matchtol=matchtol):
 
     # np.savetxt(out_dir+"dir2403/master_"+targname+"_"+filter+".txt",master,fmt=fmt,header=header)
 
-    np.savetxt(out_dir+"master_"+targname+"_"+filter+"_nC.txt",master,fmt=fmt,header=header)
+    np.savetxt(out_dir+"master_"+targname+"_"+filter+".txt",master,fmt=fmt,header=header)
 
     return None
 
@@ -217,7 +217,7 @@ def wcsTrans(targname,filter):
 
     # cat = np.loadtxt(out_dir+"dir2403/master_"+targname+"_"+filter+".txt")
 
-    cat = np.loadtxt(out_dir+"master_"+targname+"_"+filter+"_nC.txt")
+    cat = np.loadtxt(out_dir+"master_"+targname+"_"+filter+".txt")
 
     newCols = np.zeros((len(cat),2))
 
@@ -238,7 +238,7 @@ def wcsTrans(targname,filter):
     header =  "xr yr flux c_star magr id xc yc xt yt id2 id3 id4 ra dec"
     # np.savetxt(out_dir+"dir2403/"+targname+"_"+filter+"_coords.txt",cat,header=header,fmt="%1.5f %1.5f %1.5f %1.4f %1.5f %d %1.5f %1.5f %1.5f %1.5f %d %d %d %1.5f %1.5f")
 
-    np.savetxt(out_dir+targname+"_"+filter+"_coords_nC.txt",cat,header=header,fmt="%1.5f %1.5f %1.5f %1.4f %1.5f %d %1.5f %1.5f %1.5f %1.5f %d %d %d %1.5f %1.5f")
+    np.savetxt(out_dir+targname+"_"+filter+"_coords.txt",cat,header=header,fmt="%1.5f %1.5f %1.5f %1.4f %1.5f %d %1.5f %1.5f %1.5f %1.5f %d %d %d %1.5f %1.5f")
 
     return None
 
@@ -274,7 +274,7 @@ def pullMags(targname,filter):
 
     # master = np.loadtxt(out_dir+"dir2403/"+targname+"_"+filter+"_coords.txt")
 
-    master = np.loadtxt(out_dir+targname+"_"+filter+"_coords_nC.txt")
+    master = np.loadtxt(out_dir+targname+"_"+filter+"_coords.txt")
 
     # coordRows = master[:,[ra_ind,dec_ind,flux,c_star]] #working line
 
@@ -287,12 +287,12 @@ def pullMags(targname,filter):
         # cat = np.loadtxt(posDir+ jdanUse[jj] +"_"+targname+'_'+ filter +"_dc_t.dat",comments='#')
 
         # Zero iteration
-        # cat = np.loadtxt(posDir+ jdanUse[jj] +"_"+targname+'_'+ filter +"_oc.dat",comments='#')
+        cat = np.loadtxt(posDir+ jdanUse[jj] +"_"+targname+'_'+ filter +"_oc.dat",comments='#')
 
         # First iteration
         # cat = np.loadtxt(out_dir+"dir2403/"+ jdanUse[jj] +"_"+targname+'_'+ filter +"_at.dat",comments='#')
 
-        cat = np.loadtxt(out_dir+jdanUse[jj] +"_"+targname+'_'+ filter +"_atnC.dat",comments='#')
+        # cat = np.loadtxt(out_dir+jdanUse[jj] +"_"+targname+'_'+ filter +"_atnC.dat",comments='#')
 
         if jj==0:
             idcol = id
@@ -314,7 +314,7 @@ def pullMags(targname,filter):
 
     # np.savetxt(out_dir+"dir2403/"+targname+"_"+filter+"_magList_xy.dat", magList, fmt="%1.5f",header=header)
 
-    np.savetxt(out_dir+targname+"_"+filter+"_magList_xynC.dat", magList, fmt="%1.5f",header=header)
+    np.savetxt(out_dir+targname+"_"+filter+"_magList_xy.dat", magList, fmt="%1.5f",header=header)
 
     return None
 
@@ -327,8 +327,8 @@ def wrapAll(targname,filter):
 
     # distCor(targname,filter)
     # offCor(targname,filter)
-    matchWJCs(targname,filter)
-    wcsTrans(targname,filter)
+    # matchWJCs(targname,filter)
+    # wcsTrans(targname,filter)
     pullMags(targname,filter)
     # regMake(targname,filter)
 

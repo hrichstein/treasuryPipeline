@@ -14,21 +14,21 @@ start=time.time()
 # names = np.genfromtxt(targList,dtype=str)
 # names=['BOOTES-II-NORTH','BOOTES-II-SOUTH','CARINA','DRACO-II']
 # magDir = '/Volumes/Spare Data/Hannah_Data/hor1dir1803/dir2503/'
-magDir = '/Volumes/Spare Data/Hannah_Data/hor1dir3103/'
+magDir = '/Volumes/Spare Data/Hannah_Data/hor1dir2804/'
 # infileI = 'HOROLOGIUM-I_F814W_cut_std_d6_dist.dat'
 # infileV = 'HOROLOGIUM-I_F606W_cut_std_d6_dist.dat'
 
-# infileI = 'HOROLOGIUM-I_F814W_cut_std.dat'
-# infileV = 'HOROLOGIUM-I_F606W_cut_std.dat'
+infileI = 'HOROLOGIUM-I_F814W_cut_std.dat'
+infileV = 'HOROLOGIUM-I_F606W_cut_std.dat'
 
-infileI = 'HOROLOGIUM-I_F814W_CRnoCut_std2.dat'
-infileV = 'HOROLOGIUM-I_F606W_CRnoCut_std2.dat'
+# infileI = 'HOROLOGIUM-I_F814W_CRnoCut_std2.dat'
+# infileV = 'HOROLOGIUM-I_F606W_CRnoCut_std2.dat'
 
 f606w = np.loadtxt(magDir+infileI, dtype='float')
 f814w = np.loadtxt(magDir+infileV, dtype='float')
 
-print(len(f606w))
-print(len(f814w))
+print('Length F606W',len(f606w))
+print('Length F814W',len(f814w))
 
 matchtol = 2
 def distArr(x0,y0,x_arr,y_arr):
@@ -97,7 +97,8 @@ idxs1 = idxs1[msk]
 idxs2 = idxs2[msk]
 ds = ds[msk]
 
-print(len(idxs1))
+print(max(idxs1))
+print(max(idxs2))
 
 # outfile = magDir+'hor-I-cut_F606W_match_pix_d6_dist.txt'
 # np.savetxt(outfile, idxs2, fmt='%4i')
@@ -118,13 +119,13 @@ print(len(idxs1))
 # outfile = magDir+'hor-I-cut_ds_pix.txt'
 # np.savetxt(outfile, ds, fmt='%1.4f')
 
-outfile = magDir+'hor-I-cut_F606W_match_pix_noCut2.txt'
+outfile = magDir+'hor-I-cut_F606W_match.txt'
 np.savetxt(outfile, idxs2, fmt='%4i')
 
-outfile = magDir+'hor-I-cut_F814W_match_pix_noCut2.txt'
+outfile = magDir+'hor-I-cut_F814W_match.txt'
 np.savetxt(outfile, idxs1, fmt='%4i')
 
-outfile = magDir+'hor-I-cut_ds_pix_noCut2.txt'
+outfile = magDir+'hor-I-cut_ds.txt'
 np.savetxt(outfile, ds, fmt='%1.4f')
 
 print('It took {0:0.1f} seconds'.format(time.time() - start))

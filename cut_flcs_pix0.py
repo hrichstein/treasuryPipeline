@@ -6,7 +6,7 @@ import time
 # in_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir3/'
 # out_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir6pix/'
 
-in_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir1803/'
+in_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir2804/'
 out_dir = in_dir
 # out_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir0501/' # four pixel
 
