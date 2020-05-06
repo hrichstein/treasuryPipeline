@@ -5,8 +5,8 @@ main_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir2804/'
 
 def upLoConcat(frame,filter):
 
-    up= np.loadtxt(main_dir+'upper_'+frame+'_'+filter+'_matched.dat')
-    low= np.loadtxt(main_dir+'lower_'+frame+'_'+filter+'_matched.dat')
+    up= np.loadtxt(main_dir+'upper_'+frame+'_'+filter+'_matched_magCuts.dat')
+    low= np.loadtxt(main_dir+'lower_'+frame+'_'+filter+'_matched_magCuts.dat')
 
     concat = np.vstack((up,low))
 
@@ -18,10 +18,17 @@ def upLoConcat(frame,filter):
 
         header='RA_v DEC_v x_v y_v fAper_v fErr_v magAper_v magErr_v magRaw_v magRed_v magAbs_v elong_v ellip_v class_Star_v RA_i DEC_i x_i y_i fAper_i fErr_i magAper_i magErr_i magRaw_i magRed_i magAbs_i elong_i ellip_i class_Star_i corrF_errV corrF_errI corrM_errV corrM_errI'
 
-    np.savetxt(main_dir+'all_'+frame+'_'+filter+'_matched.dat',concat,header=header)
+    np.savetxt(main_dir+'all_'+frame+'_'+filter+'_matched_magCuts.dat',concat,header=header)
 
     return None
 
+
+filters = ['f606w','f814w']
+frames = ['drc','flc']
+
+for ff in range(len(filters)):
+    for rr in range(len(frames)):
+        upLoConcat(frames[rr],filters[ff])
 
 
 

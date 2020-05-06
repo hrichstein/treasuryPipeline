@@ -8,9 +8,9 @@ idxDir = '/Volumes/Spare Data/Hannah_Data/hor1dir2804/'
 
 drcDir = '/Users/hr8jz/Box Sync/Research/source_lists/june13/'
 
-def matchMags(outpre,frame,filter,tol=5):
+def matchMags(outpre,frame,filter,tol=7):
 
-    idxFile = np.genfromtxt(idxDir+'hor-I-cut_'+frame+'_'+outpre+'_'+filter+'_tol{0}.txt'.format(tol),dtype=int)
+    idxFile = np.genfromtxt(idxDir+'hor-I-cut_'+frame+'_'+outpre+'_'+filter+'_tol{0}_magCuts.txt'.format(tol),dtype=int)
 
     if frame=='drc':
         dataFile = np.genfromtxt(drcDir+outpre+'_HORI.dat')
@@ -25,7 +25,9 @@ def matchMags(outpre,frame,filter,tol=5):
 
     outArr = dataFile[idxFile]
 
-    np.savetxt(idxDir+outpre+'_'+frame+'_'+filter+'_matched.dat',outArr,fmt='%1.5f',header=header)
+    print(len(outArr))
+
+    np.savetxt(idxDir+outpre+'_'+frame+'_'+filter+'_matched_magCuts.dat',outArr,fmt='%1.5f',header=header)
 
     return None
 

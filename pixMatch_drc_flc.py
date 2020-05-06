@@ -14,14 +14,14 @@ drc_dir = '/Users/hr8jz/Box Sync/Research/source_lists/june13/'
 
 infileDRC_up = drc_dir+'upper_HORI.dat'
 infileDRC_low = drc_dir+'lower_HORI.dat'
-infileFLC = main_dir+'flc_w_drc_trans_all.dat'
+infileFLC = main_dir+'flc_w_drc_trans_all_magCuts.dat'
 
 drc_up = np.genfromtxt(infileDRC_up, names=True)
 drc_low = np.genfromtxt(infileDRC_low, names=True)
 
 flc_all = np.genfromtxt(infileFLC, names=True)
 
-matchtol = 5
+matchtol = 7
 def distArr(x0,y0,x_arr,y_arr):
     dist_arr = np.sqrt( (x0-x_arr)**2 + (y0-y_arr)**2 )
 
@@ -32,7 +32,7 @@ def runPixMatch(outpre,filter):
 
     if filter=='f606w':
         let='v'
-    else:    
+    else:
         let='i'
 
     if outpre=='lower':
@@ -93,14 +93,14 @@ def runPixMatch(outpre,filter):
 
     print(len(idxs1))
 
-    outfile = main_dir+'hor-I-cut_drc_'+outpre+'_'+filter+'_tol{0}.txt'.format(matchtol)
+    outfile = main_dir+'hor-I-cut_drc_'+outpre+'_'+filter+'_tol{0}_magCuts.txt'.format(matchtol)
     np.savetxt(outfile, idxs2, fmt='%4i')
 
-    outfile = main_dir+'hor-I-cut_flc_'+outpre+'_'+filter+'_tol{0}.txt'.format(matchtol)
+    outfile = main_dir+'hor-I-cut_flc_'+outpre+'_'+filter+'_tol{0}_magCuts.txt'.format(matchtol)
     np.savetxt(outfile, idxs1, fmt='%4i')
 
-    outfile = main_dir+'hor-I-cut_ds_'+outpre+'_'+filter+'_tol{0}.txt'.format(matchtol)
-    np.savetxt(outfile, ds, fmt='%1.4f')
+    # outfile = main_dir+'hor-I-cut_ds_'+outpre+'_'+filter+'_tol{0}.txt'.format(matchtol)
+    # np.savetxt(outfile, ds, fmt='%1.4f')
 
     return None
 
