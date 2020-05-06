@@ -1,7 +1,7 @@
 import numpy as np
 
 
-dir_flc = '/Volumes/Spare Data/Hannah_Data/drc_flc_match/'
+main_dir = '/Volumes/Spare Data/Hannah_Data/hor1dir2804/'
 
 flc_up= np.loadtxt(dir_flc+'up_flc_814_matched.dat')
 flc_low= np.loadtxt(dir_flc+'low_flc_814_matched.dat')
